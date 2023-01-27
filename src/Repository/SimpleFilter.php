@@ -61,6 +61,9 @@ class SimpleFilter
         $this->order = $order;
     }
 
+    /**
+     * @return Criteria
+     */
     public function getCriteria(): Criteria
     {
         $firstResult = (!is_null($this->page) && !is_null($this->countPerPage)) ? ($this->page - 1) * $this->countPerPage : null;
@@ -73,6 +76,9 @@ class SimpleFilter
         );
     }
 
+    /**
+     * @return CompositeExpression|null
+     */
     private function buildExpression(): ?CompositeExpression
     {
         if (!is_null($this->filter) && count($this->filter) > 0) {

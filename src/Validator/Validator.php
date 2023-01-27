@@ -22,7 +22,12 @@ class Validator
             ->getValidator();
     }
 
-    public function requestValidator(string $dtoClass, array $requestData)
+    /**
+     * @param string $dtoClass
+     * @param array $requestData
+     * @throws BadRequestParamsException
+     */
+    public function requestValidator(string $dtoClass, array $requestData): void
     {
         try {
             $reflectionClass = new \ReflectionClass($dtoClass);
@@ -48,6 +53,11 @@ class Validator
         }
     }
 
+    /**
+     * @param string $dtoClassName
+     * @param array $denormalizedData
+     * @param bool $isCollection
+     */
     public function responseValidator(string $dtoClassName, array $denormalizedData, bool $isCollection): void
     {
         if ($isCollection) {
