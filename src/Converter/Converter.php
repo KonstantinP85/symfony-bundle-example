@@ -38,10 +38,10 @@ class Converter
     /**
      * @param string $dtoClass
      * @param Request $request
-     * @return object
+     * @return QueryInterface|CommandInterface
      * @throws BadRequestParamsException
      */
-    public function convertRequestToDto(string $dtoClass, Request $request): object
+    public function convertRequestToDto(string $dtoClass, Request $request): QueryInterface|CommandInterface
     {
         $requestData = array_merge(
             $request->query->all(),
@@ -50,23 +50,26 @@ class Converter
 
         $this->validator->requestValidator($dtoClass, $requestData);
 
-        return $this->serializer->denormalize($requestData, $dtoClass, null,
+        $response = $this->serializer->denormalize($requestData, $dtoClass, null,
             [AbstractObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true]
         );
+
+        /** @var QueryInterface|CommandInterface $response*/
+        return $response;
     }
 
     /**
      * @param string $dtoClass
      * @param object|array $entity
-     * @return object
+     * @return array|object
      * @throws ExceptionInterface
      */
-    public function convertEntityToDto(string $dtoClass, object|array $entity): object
+    public function convertEntityToDto(string $dtoClass, object|array $entity): array|object
     {
         $arrayEntity = $this->serializer->normalize($entity);
 
         if (is_array($entity)) $dtoClass = $dtoClass . '[]';
 
-        return  $this->serializer->denormalize($arrayEntity, $dtoClass);
+        return $this->serializer->denormalize($arrayEntity, $dtoClass);
     }
 }

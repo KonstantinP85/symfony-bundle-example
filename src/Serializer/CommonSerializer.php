@@ -55,13 +55,13 @@ class CommonSerializer
     }
 
     /**
-     * @param object $data
+     * @param mixed $data
      * @param string|null $format
      * @param array $context
      * @return array
      * @throws ExceptionInterface
      */
-    public function normalize(object $data, string $format = null, array $context = []): array
+    public function normalize(mixed $data, string $format = null, array $context = []): array
     {
         return $this->serializer->normalize($data, $format, $context);
     }

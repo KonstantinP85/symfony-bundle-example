@@ -2,6 +2,9 @@
 
 namespace St\AbstractService\Controller;
 
+use St\AbstractService\Converter\Converter;
+use St\AbstractService\Serializer\CommonSerializer;
+use St\AbstractService\Validator\Validator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 abstract class AbstractController
@@ -40,5 +43,13 @@ abstract class AbstractController
                 'status' => 'error'
             ], ['result' => json_decode($data, false)])
         );
+    }
+
+    /**
+     * @return Converter
+     */
+    protected function getConverter(): Converter
+    {
+        return new Converter(new CommonSerializer(), new Validator());
     }
 }

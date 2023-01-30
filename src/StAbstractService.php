@@ -2,9 +2,6 @@
 
 namespace St\AbstractService;
 
-use St\AbstractService\Bus\Command\MessengerCommandBus;
-use St\AbstractService\Bus\Command\MessengerCommandBusInterface;
-use St\AbstractService\Controller\AbstractController;
 use St\AbstractService\DependencyInjection\StAbstractServiceExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
